@@ -1,43 +1,6 @@
-from utils.list import Dim
-from memory import memset_zero
-from random import rand
 from math import min, abs
 from time import now
-
-# Define the Matrix struct
-struct Matrix:
-    var data: DTypePointer[DType.float32]
-    var rows: Int
-    var cols: Int
-
-    fn __init__(inout self, rows: Int, cols: Int):
-        self.data = DTypePointer[DType.float32].alloc(rows * cols)
-        rand(self.data, rows * cols)
-        self.rows = rows
-        self.cols = cols
-
-    fn __del__(owned self):
-        self.data.free()
-
-    fn zero(inout self):
-        memset_zero(self.data, self.rows * self.cols)
-
-    @always_inline
-    fn __getitem__(self, y: Int, x: Int) -> Float32:
-        return self.load[1](y, x)
-
-    @always_inline
-    fn __setitem__(self, y: Int, x: Int, val: Float32):
-        return self.store[1](y, x, val)
-
-    @always_inline
-    fn load[nelts: Int](self, y: Int, x: Int) -> SIMD[DType.float32, nelts]:
-        return self.data.simd_load[nelts](y * self.cols + x)
-
-    @always_inline
-    fn store[nelts: Int](self, y: Int, x: Int, val: SIMD[DType.float32, nelts]):
-        return self.data.simd_store[nelts](y * self.cols + x, val)
-
+from tools import Matrix
 
 # Fill all the elements of Matrix with inf
 fn fill_Q_Matrix(Q: Matrix):
