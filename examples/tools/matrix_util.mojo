@@ -1,9 +1,11 @@
+# Based on Matrix Multiplication Example in Mojo: https://docs.modular.com/mojo/notebooks/Matmul.html
+
 from memory import memset_zero
 from random import rand, seed
 from algorithm import parallelize, vectorize
 
 alias nelts = simdwidthof[DType.float32]()
-        
+
 # Define the Matrix struct
 struct Matrix:
     var data: DTypePointer[DType.float32]
