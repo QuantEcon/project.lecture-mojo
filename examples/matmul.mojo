@@ -1,5 +1,7 @@
-from tools import Matrix, matmul, transpose
+from tools.matrix_util import Matrix, matmul, transpose
 from time import now
+from benchmark import Benchmark
+from runtime.llcl import Runtime
 
 fn small_matmul():
     let A = Matrix(2, 2)
@@ -33,14 +35,15 @@ fn large_matmul():
     var B = Matrix(A.rows, AT.cols)
     B.zero()
 
-    let eval_begin: Float64 = now()
-    matmul(B, A, AT)
-    let eval_end: Float64 = now()
+    @always_inline
+    @parameter
+    fn test_fn():
+        matmul(B, A, AT)
 
-    let execution_time = Float64((eval_end - eval_begin)) / 1e6
-    print("Completed naive matmul in ", execution_time, "ms")
+    var secs = Float64(Benchmark().run[test_fn]()) / 1_000_000_000
+    print("Completed matmul in ", secs * 1_000, "ms /", secs, "s")
 
-    let gflops = ((2*size**3)/execution_time) / 1e9
+    let gflops = ((2*size**3)/secs) / 1e9
     print(gflops, "GFLOP/s")
 
 fn main():

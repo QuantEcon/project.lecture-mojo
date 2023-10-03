@@ -1,9 +1,9 @@
-# Based on Matrix Multiplication Example in Mojo: https://docs.modular.com/mojo/notebooks/Matmul.html
-
 from memory import memset_zero
 from random import rand, seed
 from algorithm import parallelize, vectorize
+from math import exp, sqrt
 
+# Based on Matrix Multiplication Example in Mojo: https://docs.modular.com/mojo/notebooks/Matmul.html
 alias nelts = simdwidthof[DType.float32]()
 
 # Define the Matrix struct
@@ -40,7 +40,45 @@ struct Matrix:
     @always_inline
     fn store[nelts: Int](self, y: Int, x: Int, val: SIMD[DType.float32, nelts]):
         return self.data.simd_store[nelts](y * self.cols + x, val)
+
+    @always_inline
+    fn row_sum(self, row: Int) -> Float32:
+        var sum: Float32 = 0.0
+        for n in range(self.cols):
+            sum += self[row, n]
+        return sum
+
+    @always_inline
+    fn col_sum(self, col: Int) -> Float32:
+        var sum: Float32 = 0.0
+        for m in range(self.rows):
+            sum += self[m, col]
+        return sum
+
+    @always_inline
+    fn row_mean(self, row: Int) -> Float32:
+        return self.row_sum(row) / self.cols
+
+    @always_inline
+    fn col_mean(self, col: Int) -> Float32:
+        return self.col_sum(col) / self.rows
+
+    @always_inline
+    fn row_std(self, row: Int) -> Float32:
+        let mean: Float32 = self.row_mean(row)
+        var sum: Float32 = 0.0
+        for n in range(self.cols):
+            sum += (self[row, n] - mean) * (self[row, n] - mean)
+        return sqrt(sum / self.cols)
     
+    @always_inline
+    fn col_std(self, col: Int) -> Float32:
+        let mean: Float32 = self.col_mean(col)
+        var sum: Float32 = 0.0
+        for m in range(self.rows):
+            sum += (self[m, col] - mean) * (self[m, col] - mean)
+        return sqrt(sum / self.rows)
+
     fn print(self):
         print_no_newline('[')
         for m in range(self.rows):
@@ -71,3 +109,23 @@ fn transpose(A: Matrix, AT: Matrix):
     for m in range(A.rows):
         for n in range(A.cols):
             AT[n, m] = A[m, n]
+
+fn scalar_mul(A: Matrix, m: Float32):
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] = m*A[i, j]
+
+fn scalar_add(A: Matrix, a: Float32):
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] += a
+
+fn scalar_exp(A: Matrix):
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] = exp(A[i, j])
+
+fn matrix_add(A: Matrix, B: Matrix):
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] += B[i, j]

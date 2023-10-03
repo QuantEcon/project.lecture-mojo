@@ -1,6 +1,6 @@
 from math import min, abs
 from time import now
-from tools import Matrix
+from tools.matrix_util import Matrix
 
 # Fill all the elements of Matrix with inf
 fn fill_Q_Matrix(Q: Matrix):
