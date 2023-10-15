@@ -14,4 +14,4 @@ echo 'export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"' >> ~/
 source ~/.bashrc
 ```
 
-3. Go the examples directory and try running `mojo shortest_paths.mojo`.
+3. Go to the examples directory and try running `mojo shortest_paths.mojo`.
