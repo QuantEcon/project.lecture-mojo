@@ -26,6 +26,9 @@ jobs:
       - name: Display Pip Versions
         shell: bash -l {0}
         run: pip list
+      - name: Display Kernel list
+        shell: bash -l {0}
+        run: jupyter kernelspec list
       - name: Run Mojo
         shell: bash -l {0}
         run: |
