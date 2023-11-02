@@ -55,6 +55,10 @@ main()
 This works fine as expected. Now, let's replace `var` with `let` and notice the error.
 
 ```{code-cell}
+---
+tags: [raises-exception]
+---
+
 fn main():
     let x: Int = 10
     x += 1
