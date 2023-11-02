@@ -3,6 +3,9 @@ on: [push]
 jobs:
   preview:
     runs-on: ubuntu-latest
+    env:
+      MODULAR_HOME: "/home/runner/.modular"
+      PATH: "/home/runner/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
     steps:
       - uses: actions/checkout@v3
       - name: Setup Anaconda
@@ -19,9 +22,6 @@ jobs:
         run: |
           curl https://get.modular.com | sh - && modular auth mut_6134c6e374c8475394a876f6d8eb9612
           modular install mojo
-          echo 'export MODULAR_HOME="/home/runner/.modular"' >> ~/.bashrc
-          echo 'export PATH="/home/runner/.modular/pkg/packages.modular.com_mojo/bin:$PATH"' >> ~/.bashrc
-          source ~/.bashrc 
       - name: Display Conda Environment Versions
         shell: bash -l {0}
         run: conda list
