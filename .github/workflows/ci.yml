@@ -30,7 +30,7 @@ jobs:
         run: |
           export MODULAR_HOME="$HOME/.modular"
           export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
-          jb build ./ --path-output ./
+          jb build ./ --path-output ./ -n -W --keep-going
       - name: Upload Execution Reports
         uses: actions/upload-artifact@v2
         if: failure()
