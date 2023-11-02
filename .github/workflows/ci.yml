@@ -19,9 +19,7 @@ jobs:
         run: |
           curl https://get.modular.com | sh - && modular auth mut_6134c6e374c8475394a876f6d8eb9612
           modular install mojo
-          echo 'MODULAR_HOME="/home/runner/.modular"' >> "$GITHUB_ENV"
-          echo 'PATH="/home/runner/.modular/pkg/packages.modular.com_mojo/bin:$PATH"' >> "$GITHUB_ENV"
-          echo $GITHUB_ENV
+          echo "${HOME}/.modular/pkg/packages.modular.com_mojo/bin" >> $GITHUB_PATH
       - name: Display Conda Environment Versions
         shell: bash -l {0}
         run: conda list
@@ -31,7 +29,7 @@ jobs:
       - name: Run Mojo
         shell: bash -l {0}
         run: |
-          echo $GITHUB_ENV
+          echo $GITHUB_PATH
           mojo hello.mojo
       - name: Build HTML
         shell: bash -l {0}
