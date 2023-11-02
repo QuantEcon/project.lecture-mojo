@@ -19,6 +19,8 @@ jobs:
         run: |
           curl https://get.modular.com | sh - && modular auth mut_6134c6e374c8475394a876f6d8eb9612
           modular install mojo
+          export MODULAR_HOME="$HOME/.modular"
+          export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH" >> ~/.bashrc  
       - name: Display Conda Environment Versions
         shell: bash -l {0}
         run: conda list
@@ -32,8 +34,6 @@ jobs:
       - name: Build HTML
         shell: bash -l {0}
         run: |
-          export MODULAR_HOME="$HOME/.modular"
-          export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
           jb build ./ --path-output ./ -n -W --keep-going
       - name: Upload Execution Reports
         uses: actions/upload-artifact@v2
