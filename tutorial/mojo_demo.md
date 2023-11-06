@@ -26,7 +26,7 @@ other systems languages like Rust and C++. Yet, Mojo is also designed
 to become a superset of Python, so a lot of language features
 and concepts you might know from Python translate nicely to Mojo.
 
-```{code-cell}
+```{code-cell} mojo
 print("Hello Mojo!", "Hello QuantEcon!")
 ```
 
@@ -51,7 +51,7 @@ or with `let` to create an immutable value.
 
 Let's observe the difference in using them.
 
-```{code-cell}
+```{code-cell} mojo
 fn main():
     var x: Int = 10
     x += 1
@@ -63,7 +63,7 @@ main()
 This works fine as expected. Now, let's replace `var` with `let`
 and notice the error.
 
-```{code-cell}
+```{code-cell} mojo
 ---
 tags: [raises-exception]
 ---
@@ -86,7 +86,7 @@ The `fn` declaration enforces
 strongly-typed and memory-safe behaviors, while `def` provides
 Python-style dynamic behaviors.
 
-```{code-cell}
+```{code-cell} mojo
 fn some_fun():
     let x: Int = 1
     let y = 2
@@ -105,7 +105,7 @@ they are required for arguments and return values for an `fn` function.
 For example, here's how to declare `Int` as the type for function
 arguments and the return value:
 
-```{code-cell}
+```{code-cell} mojo
 fn add_two_ints(x: Int, y: Int) -> Int:
     return x + y
 
@@ -117,7 +117,7 @@ If you want the arguments to be *mutable*, you need to declare each
 argument convention as `inout`. This means that changes made to
 the arguments *inside* the function are visible outside the function.
 
-```{code-cell}
+```{code-cell} mojo
 fn add_inout(inout x: Int, inout y: Int) -> Int:
     x += 1
     y += 1
@@ -147,7 +147,7 @@ changes to the structure.
 
 For example, here's a basic struct:
 
-```{code-cell}
+```{code-cell} mojo
 struct MyPair:
     var first: Int
     var second: Int
@@ -160,7 +160,7 @@ struct MyPair:
         print(self.first, self.second)
 ```
 
-```{code-cell}
+```{code-cell} mojo
 let my_pair = MyPair(2, 4)
 my_pair.dump()
 ```
@@ -172,7 +172,7 @@ in mojo and compare the results with JAX.
 
 Let's start with the following imports
 
-```{code-cell}
+```{code-cell} mojo
 from utils.list import Dim
 from memory import memset_zero
 from random import rand
@@ -182,7 +182,7 @@ from time import now
 
 Now, define the Matrix struct that allows storing and easy computation.
 
-```{code-cell}
+```{code-cell} mojo
 # Define the Matrix struct
 
 struct Matrix:
@@ -259,7 +259,7 @@ Let's start by defining the **distance matrix** $Q$.
 
 Let's define the function that fills all the elements of matrix `Q` with `inf`.
 
-```{code-cell}
+```{code-cell} mojo
 # Fill all the elements of Matrix with inf
 
 fn fill_Q_Matrix(Q: Matrix):
@@ -275,7 +275,7 @@ to `np.sum(Q + J, axis=1)`.
 Here, we use `J[i]` vector element as `J[0, i]` as `J` is an
 object of `Matrix` struct which requires 2-D instantiation.
 
-```{code-cell}
+```{code-cell} mojo
 # Returns equivalent to np.sum(Q + J, axis=1)
 
 fn add_and_min_axis_1(Q: Matrix, J: Matrix, new_J: Matrix):
@@ -290,7 +290,7 @@ fn add_and_min_axis_1(Q: Matrix, J: Matrix, new_J: Matrix):
 To check where two matrices are almost equal, we define
 the following function equivalent to `np.allclose`.
 
-```{code-cell}
+```{code-cell} mojo
 # Checks whether both the matrices are almost equal
 
 fn check_close(J: Matrix, new_J: Matrix) -> Bool:
@@ -301,7 +301,7 @@ fn check_close(J: Matrix, new_J: Matrix) -> Bool:
     return True
 ```
 
-```{code-cell}
+```{code-cell} mojo
 # Compute the shortest path
 
 fn shortest_paths(Q: Matrix, J: Matrix):
@@ -320,7 +320,7 @@ fn shortest_paths(Q: Matrix, J: Matrix):
 Now, let's wire all these functions and run the shortest paths
 on some example matrix.
 
-```{code-cell}
+```{code-cell} mojo
 fn execute_shortest_paths():
     let Q: Matrix = Matrix(7, 7)
     fill_Q_Matrix(Q)
