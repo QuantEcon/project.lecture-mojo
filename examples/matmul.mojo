@@ -1,5 +1,4 @@
-from tools.matrix_util import Matrix, matmul, transpose
-from time import now
+from tools.matrix_util import Matrix, matmul, matmul_naive, transpose
 from benchmark import Benchmark
 from runtime.llcl import Runtime
 
@@ -25,7 +24,7 @@ fn small_matmul():
     B.print()
 
 fn large_matmul():
-    let size = 3000
+    let size = 512
     
     let A = Matrix(size, size)
     let AT = Matrix(A.rows, A.cols)
@@ -47,5 +46,4 @@ fn large_matmul():
     print(gflops, "GFLOP/s")
 
 fn main():
-    small_matmul()
     large_matmul()
