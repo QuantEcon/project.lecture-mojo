@@ -37,7 +37,7 @@ jobs:
       - name: Build HTML
         shell: bash -l {0}
         run: |
-          jb build ./ --path-output ./ -n -W --keep-going
+          jb build ./ --path-output ./
       - name: Upload Execution Reports
         uses: actions/upload-artifact@v2
         if: failure()
