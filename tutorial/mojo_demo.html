@@ -105,6 +105,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/mojo_demo';</script>
     <link rel="canonical" href="https://mojo.quantecon.org/tutorial/mojo_demo.html" />
     <link rel="shortcut icon" href="../_static/lectures-favicon.ico"/>
@@ -162,6 +164,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function">1.2. Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structures">1.3. Structures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-1-shortest-paths">1.4. Application 1: Shortest Paths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-for-minimum-cost-to-go">1.5. Solving for Minimum Cost-to-Go</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algorithm">1.5.1. The Algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-2-wealth-distribution-dynamics">1.6. Application 2: Wealth Distribution Dynamics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-model-of-wealth-dynamics">1.6.1. A Model of Wealth Dynamics</a></li>
+</ul>
+</li>
 </ul>
                             <p class="logo">
                                 
@@ -211,9 +221,15 @@ const thebe_selector_output = ".output, .cell_output"
                         
   <section class="tex2jax_ignore mathjax_ignore" id="mojo-tutorial">
 <h1><span class="section-number">1. </span>Mojo Tutorial<a class="headerlink" href="#mojo-tutorial" title="Permalink to this heading">#</a></h1>
-<p>This notebook walks through basic comparison of python and <a class="reference external" href="https://docs.modular.com/mojo/">mojo</a> and it’s application in quantitative economics.</p>
-<p>The notebook is built on top of <a class="reference external" href="https://github.com/modularml/mojo/blob/main/examples/notebooks/HelloMojo.ipynb">mojo example</a>.</p>
-<p>Mojo is a powerful programming language that’s primarily designed for high-performance systems programming, so it has a lot in common with other systems languages like Rust and C++. Yet, Mojo is also designed to become a superset of Python, so a lot of language features and concepts you might know from Python translate nicely to Mojo.</p>
+<p>This notebook walks through basic comparison of python and <a class="reference external" href="https://docs.modular.com/mojo/">mojo</a>
+and it’s application in quantitative economics.</p>
+<p>The notebook is built on top of
+<a class="reference external" href="https://github.com/modularml/mojo/blob/main/examples/notebooks/HelloMojo.ipynb">mojo example</a>.</p>
+<p>Mojo is a powerful programming language that’s primarily designed for
+high-performance systems programming, so it has a lot in common with
+other systems languages like Rust and C++. Yet, Mojo is also designed
+to become a superset of Python, so a lot of language features
+and concepts you might know from Python translate nicely to Mojo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>print(&quot;Hello Mojo!&quot;, &quot;Hello QuantEcon!&quot;)
@@ -227,12 +243,21 @@ The process has been left at the point where it was interrupted, use &quot;threa
 </div>
 </div>
 </div>
-<p>Mojo preserves Python’s dynamic features and language syntax, and it even allows you to import and run code from Python packages. However, it’s important to know that Mojo is an entirely new language, not just a new implementation of Python with syntax sugar.</p>
-<p>Mojo takes the Python language to a whole new level, with systems programming features, strong type-checking, memory safety, next-generation compiler technologies, and more. Yet, it’s still designed to be a simple language that’s useful for general-purpose programming.</p>
-<p>First and foremost, Mojo is a compiled language and a lot of its performance and memory-safety features are derived from that fact. Mojo code can be ahead-of-time (AOT) or just-in-time (JIT) compiled.</p>
+<p>Mojo preserves Python’s dynamic features and language syntax, and
+it even allows you to import and run code from Python packages.
+However, it’s important to know that Mojo is an entirely new
+language, not just a new implementation of Python with syntax sugar.</p>
+<p>Mojo takes the Python language to a whole new level, with
+systems programming features, strong type-checking, memory safety,
+next-generation compiler technologies, and more. Yet, it’s still
+designed to be a simple language that’s useful for general-purpose programming.</p>
+<p>First and foremost, Mojo is a compiled language and a lot of its
+performance and memory-safety features are derived from that fact.
+Mojo code can be ahead-of-time (AOT) or just-in-time (JIT) compiled.</p>
 <section id="variables">
 <h2><span class="section-number">1.1. </span>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h2>
-<p>You can declare variables with <code class="docutils literal notranslate"><span class="pre">var</span></code> to create a mutable value, or with <code class="docutils literal notranslate"><span class="pre">let</span></code> to create an immutable value.</p>
+<p>You can declare variables with <code class="docutils literal notranslate"><span class="pre">var</span></code> to create a mutable value,
+or with <code class="docutils literal notranslate"><span class="pre">let</span></code> to create an immutable value.</p>
 <p>Let’s observe the difference in using them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -246,7 +271,8 @@ main()
 </div>
 </div>
 </div>
-<p>This works fine as expected. Now, let’s replace <code class="docutils literal notranslate"><span class="pre">var</span></code> with <code class="docutils literal notranslate"><span class="pre">let</span></code> and notice the error.</p>
+<p>This works fine as expected. Now, let’s replace <code class="docutils literal notranslate"><span class="pre">var</span></code> with <code class="docutils literal notranslate"><span class="pre">let</span></code>
+and notice the error.</p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn main():
@@ -263,8 +289,10 @@ main()
 </section>
 <section id="function">
 <h2><span class="section-number">1.2. </span>Function<a class="headerlink" href="#function" title="Permalink to this heading">#</a></h2>
-<p>Mojo functions can be declared with either <code class="docutils literal notranslate"><span class="pre">fn</span></code> or <code class="docutils literal notranslate"><span class="pre">def</span></code> (as in Python). The <code class="docutils literal notranslate"><span class="pre">fn</span></code> declaration enforces
-strongly-typed and memory-safe behaviors, while <code class="docutils literal notranslate"><span class="pre">def</span></code> provides Python-style dynamic behaviors.</p>
+<p>Mojo functions can be declared with either <code class="docutils literal notranslate"><span class="pre">fn</span></code> or <code class="docutils literal notranslate"><span class="pre">def</span></code> (as in Python).
+The <code class="docutils literal notranslate"><span class="pre">fn</span></code> declaration enforces
+strongly-typed and memory-safe behaviors, while <code class="docutils literal notranslate"><span class="pre">def</span></code> provides
+Python-style dynamic behaviors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn some_fun():
@@ -277,9 +305,13 @@ some_fun()
 </div>
 </div>
 </div>
-<p>Notice that the <code class="docutils literal notranslate"><span class="pre">x</span></code> variable has an explicit <code class="docutils literal notranslate"><span class="pre">Int</span></code> type specification. Declaring the type is not required for variables in <code class="docutils literal notranslate"><span class="pre">fn</span></code>, but it is desirable sometimes. If you omit it, Mojo infers the type.</p>
-<p>Although types aren’t required for variables declared in the function body, they are required for arguments and return values for an <code class="docutils literal notranslate"><span class="pre">fn</span></code> function.</p>
-<p>For example, here’s how to declare <code class="docutils literal notranslate"><span class="pre">Int</span></code> as the type for function arguments and the return value:</p>
+<p>Notice that the <code class="docutils literal notranslate"><span class="pre">x</span></code> variable has an explicit <code class="docutils literal notranslate"><span class="pre">Int</span></code> type specification.
+Declaring the type is not required for variables in <code class="docutils literal notranslate"><span class="pre">fn</span></code>,
+but it is desirable sometimes. If you omit it, Mojo infers the type.</p>
+<p>Although types aren’t required for variables declared in the function body,
+they are required for arguments and return values for an <code class="docutils literal notranslate"><span class="pre">fn</span></code> function.</p>
+<p>For example, here’s how to declare <code class="docutils literal notranslate"><span class="pre">Int</span></code> as the type for function
+arguments and the return value:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn add_two_ints(x: Int, y: Int) -&gt; Int:
@@ -291,7 +323,9 @@ print(z)
 </div>
 </div>
 </div>
-<p>If you want the arguments to be <em>mutable</em>, you need to declare each argument convention as <code class="docutils literal notranslate"><span class="pre">inout</span></code>. This means that changes made to the arguments <em>inside</em> the function are visible outside the function.</p>
+<p>If you want the arguments to be <em>mutable</em>, you need to declare each
+argument convention as <code class="docutils literal notranslate"><span class="pre">inout</span></code>. This means that changes made to
+the arguments <em>inside</em> the function are visible outside the function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn add_inout(inout x: Int, inout y: Int) -&gt; Int:
@@ -311,11 +345,17 @@ print(&quot;Value of c:&quot;, c)
 </div>
 </div>
 </div>
-<p>Notice how the values of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are changed due to mutable definition using <code class="docutils literal notranslate"><span class="pre">inout</span></code>.</p>
+<p>Notice how the values of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are changed due to
+mutable definition using <code class="docutils literal notranslate"><span class="pre">inout</span></code>.</p>
 </section>
 <section id="structures">
 <h2><span class="section-number">1.3. </span>Structures<a class="headerlink" href="#structures" title="Permalink to this heading">#</a></h2>
-<p>You can build high-level abstractions for types (or “objects”) in a struct. A struct in Mojo is similar to a class in Python: they both support methods, fields, operator overloading, decorators for metaprogramming, etc. However, Mojo structs are completely static—they are bound at compile-time, so they do not allow dynamic dispatch or any runtime changes to the structure.</p>
+<p>We can build high-level abstractions for types (or “objects”) in a struct.
+A struct in Mojo is similar to a class in Python: they both support methods,
+fields, operator overloading, decorators for metaprogramming, etc.
+However, Mojo structs are completely static—they are bound at compile-time,
+so they do not allow dynamic dispatch or any runtime
+changes to the structure.</p>
 <p>For example, here’s a basic struct:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -344,7 +384,8 @@ my_pair.dump()
 </section>
 <section id="application-1-shortest-paths">
 <h2><span class="section-number">1.4. </span>Application 1: Shortest Paths<a class="headerlink" href="#application-1-shortest-paths" title="Permalink to this heading">#</a></h2>
-<p>Let’s try to re-write the <a class="reference external" href="https://jax.quantecon.org/short_path.html">Shortest Paths lecture</a> in mojo and compare the results with JAX.</p>
+<p>Let’s try to re-write the <a class="reference external" href="https://jax.quantecon.org/short_path.html">Shortest Paths lecture</a>
+in mojo and compare the results with JAX.</p>
 <p>Let’s start with the following imports</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -361,6 +402,7 @@ from time import now
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span># Define the Matrix struct
+
 struct Matrix:
     var data: DTypePointer[DType.float32]
     var rows: Int
@@ -371,6 +413,12 @@ struct Matrix:
         rand(self.data, rows * cols)
         self.rows = rows
         self.cols = cols
+    
+    fn __init__(inout self, other: Matrix):
+        self.rows = other.rows
+        self.cols = other.cols
+        self.data = DTypePointer[DType.float32].alloc(self.rows * self.cols)
+        memcpy[DType.float32](self.data, other.data, self.rows * self.cols)
 
     fn __del__(owned self):
         self.data.free()
@@ -397,10 +445,37 @@ struct Matrix:
 </div>
 </div>
 </div>
+</section>
+<section id="solving-for-minimum-cost-to-go">
+<h2><span class="section-number">1.5. </span>Solving for Minimum Cost-to-Go<a class="headerlink" href="#solving-for-minimum-cost-to-go" title="Permalink to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(J(v)\)</span> denote the minimum cost-to-go from node <span class="math notranslate nohighlight">\(v\)</span>,
+understood as the total cost from <span class="math notranslate nohighlight">\(v\)</span> if we take the best route.</p>
+<p>Let’s look at an algorithm for computing <span class="math notranslate nohighlight">\(J\)</span> and then think about how to
+implement it.</p>
+<section id="the-algorithm">
+<h3><span class="section-number">1.5.1. </span>The Algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this heading">#</a></h3>
+<p>The standard algorithm for finding <span class="math notranslate nohighlight">\(J\)</span> is to start an initial guess
+and then iterate.</p>
+<p>This is a standard approach to solving nonlinear equations, often called
+the method of <strong>successive approximations</strong>.</p>
+<p>Our initial guess will be</p>
+<div class="math notranslate nohighlight">
+\[
+J_0(v) = 0 \text{ for all } v
+\]</div>
+<p>Now</p>
+<ol class="arabic simple">
+<li><p>Set <span class="math notranslate nohighlight">\(n = 0\)</span></p></li>
+<li><p>Set <span class="math notranslate nohighlight">\(J_{n+1} (v) = \min_{w \in F_v} \{ c(v, w) + J_n(w) \}\)</span> for all <span class="math notranslate nohighlight">\(v\)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\(J_{n+1}\)</span> and <span class="math notranslate nohighlight">\(J_n\)</span> are not equal then increment <span class="math notranslate nohighlight">\(n\)</span>, go to 2</p></li>
+</ol>
+<p>This sequence converges to <span class="math notranslate nohighlight">\(J\)</span>.</p>
+<p>Let’s start by defining the <strong>distance matrix</strong> <span class="math notranslate nohighlight">\(Q\)</span>.</p>
 <p>Let’s define the function that fills all the elements of matrix <code class="docutils literal notranslate"><span class="pre">Q</span></code> with <code class="docutils literal notranslate"><span class="pre">inf</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span># Fill all the elements of Matrix with inf
+
 fn fill_Q_Matrix(Q: Matrix):
     let inf: Float32 = 100000000.00
     for i in range(Q.rows):
@@ -410,10 +485,14 @@ fn fill_Q_Matrix(Q: Matrix):
 </div>
 </div>
 </div>
-<p>The following utility function computes the result equivalent to <code class="docutils literal notranslate"><span class="pre">np.sum(Q</span> <span class="pre">+</span> <span class="pre">J,</span> <span class="pre">axis=1)</span></code>.</p>
+<p>The following utility function computes the result equivalent
+to <code class="docutils literal notranslate"><span class="pre">np.sum(Q</span> <span class="pre">+</span> <span class="pre">J,</span> <span class="pre">axis=1)</span></code>.</p>
+<p>Here, we use <code class="docutils literal notranslate"><span class="pre">J[i]</span></code> vector element as <code class="docutils literal notranslate"><span class="pre">J[0,</span> <span class="pre">i]</span></code> as <code class="docutils literal notranslate"><span class="pre">J</span></code> is an
+object of <code class="docutils literal notranslate"><span class="pre">Matrix</span></code> struct which requires 2-D instantiation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span># Returns equivalent to np.sum(Q + J, axis=1)
+
 fn add_and_min_axis_1(Q: Matrix, J: Matrix, new_J: Matrix):
     let inf: Float32 = 100000000.00
     for i in range(Q.rows):
@@ -425,10 +504,12 @@ fn add_and_min_axis_1(Q: Matrix, J: Matrix, new_J: Matrix):
 </div>
 </div>
 </div>
-<p>To check where two matrices are almost equal, we define the following function equivalent to <code class="docutils literal notranslate"><span class="pre">np.allclose</span></code>.</p>
+<p>To check where two matrices are almost equal, we define
+the following function equivalent to <code class="docutils literal notranslate"><span class="pre">np.allclose</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span># Checks whether both the matrices are almost equal
+
 fn check_close(J: Matrix, new_J: Matrix) -&gt; Bool:
     let inf: Float32 = 100000000.00
     for i in range(J.cols):
@@ -442,6 +523,7 @@ fn check_close(J: Matrix, new_J: Matrix) -&gt; Bool:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span># Compute the shortest path
+
 fn shortest_paths(Q: Matrix, J: Matrix):
     let max_iter: Int = 500
     var i: Int = 0
@@ -457,7 +539,8 @@ fn shortest_paths(Q: Matrix, J: Matrix):
 </div>
 </div>
 </div>
-<p>Now, let’s wire all these functions and run the shortest paths on some example matrix.</p>
+<p>Now, let’s wire all these functions and run the shortest paths
+on some example matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn execute_shortest_paths():
@@ -483,7 +566,7 @@ fn shortest_paths(Q: Matrix, J: Matrix):
     let eval_end: Float64 = now()
 
     let execution_time = Float64((eval_end - eval_begin)) / 1e6
-    print(&quot;Completed naive shortest paths in &quot;, execution_time, &quot;ms&quot;)
+    print(&quot;Completed shortest paths in&quot;, execution_time, &quot;ms&quot;)
     print(&quot;The cost-to-go value is:&quot;)
     for i in range(7):
         print(J[0, i])
@@ -493,6 +576,210 @@ execute_shortest_paths()
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="application-2-wealth-distribution-dynamics">
+<h2><span class="section-number">1.6. </span>Application 2: Wealth Distribution Dynamics<a class="headerlink" href="#application-2-wealth-distribution-dynamics" title="Permalink to this heading">#</a></h2>
+<p>Let’s try to re-write the <a class="reference external" href="https://jax.quantecon.org/wealth_dynamics.html">Wealth Distribution Dynamics</a>
+in mojo and compare the results with JAX.</p>
+<p>Let’s start with the following imports</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>from memory import memset_zero, memcpy
+from random import rand, random_float64
+from math import abs, exp, sqrt, log, cos
+from time import now
+
+
+alias PI = 3.141592653589793
+</pre></div>
+</div>
+</div>
+</div>
+<p>We define the random normal variate generator functions
+that will be used later in the example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn random_normal(mu: Float32, sigma: Float32, M: SIMD[DType.float32, 1]) -&gt; SIMD[DType.float32, 1]:
+
+    let u1 = random_float64().cast[DType.float32]()
+    let u2 = random_float64().cast[DType.float32]()
+
+    let z0 = sqrt(-2 * log(u1)) * cos[DType.float32, 1](2 * PI * u2)
+
+    return sigma*z0 + mu
+
+
+fn random_normal_matrix(mu: Float32, sigma: Float32, M: Matrix):
+    for i in range(M.rows):
+        for j in range(M.cols):
+            M[i, j] = random_normal(mu, sigma, M[i, j])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We need some matrix operations like multiplication, addition,
+and exponential of the whole matrix by some scalar number.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn scalar_mul(A: Matrix, m: Float32):
+    # Multiplies each element of A by m
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] = m*A[i, j]
+
+fn scalar_add(A: Matrix, a: Float32):
+    # Adds each element of A by a
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] += a
+
+fn scalar_exp(A: Matrix):
+    # Exponential of each element of A
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] = exp(A[i, j])
+
+fn matrix_add(A: Matrix, B: Matrix):
+    # Adds two Matrix A and B. Result is stored in A
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] += B[i, j]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="a-model-of-wealth-dynamics">
+<h3><span class="section-number">1.6.1. </span>A Model of Wealth Dynamics<a class="headerlink" href="#a-model-of-wealth-dynamics" title="Permalink to this heading">#</a></h3>
+<p>The model we will study is</p>
+<div class="math notranslate nohighlight">
+\[
+    w_{t+1} = (1 + r_{t+1}) s(w_t) + y_{t+1}
+\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(w_t\)</span> is wealth at time <span class="math notranslate nohighlight">\(t\)</span> for a given household,</p></li>
+<li><p><span class="math notranslate nohighlight">\(r_t\)</span> is the rate of return of financial assets,</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_t\)</span> is current non-financial (e.g., labor) income and</p></li>
+<li><p><span class="math notranslate nohighlight">\(s(w_t)\)</span> is current wealth net of consumption</p></li>
+</ul>
+<p>The following function updates one period with the given
+current wealth and persistent state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn update_states_mojo(w: Matrix, z: Matrix, a: Float32, b: Float32, sigma_z: Float32,
+                    c_y: Float32, sigma_y: Float32, mu_y: Float32,
+                    c_r: Float32, sigma_r: Float32, mu_r: Float32, s_0: Float32,
+                    w_hat: Float32):
+
+    scalar_mul(z, a)
+    scalar_add(z, b)
+    let rand_matrix1: Matrix = Matrix(z.rows, z.cols)
+    random_normal_matrix(0, 1, rand_matrix1)
+    scalar_mul(rand_matrix1, sigma_z)
+    matrix_add(z, rand_matrix1)
+
+    var zp: Matrix = Matrix(z)
+
+    scalar_exp(zp)
+    scalar_mul(zp, c_y)
+    let rand_matrix2: Matrix = Matrix(z.rows, z.cols)
+    random_normal_matrix(0, 1, rand_matrix2)
+    scalar_mul(rand_matrix2, sigma_y)
+    scalar_add(rand_matrix2, mu_y)
+    scalar_exp(rand_matrix2)
+    matrix_add(zp, rand_matrix2)
+
+    let mat_y: Matrix =  Matrix(zp)
+
+    zp = Matrix(z)
+    scalar_exp(zp)
+    scalar_mul(zp, c_r)
+    let rand_matrix3: Matrix = Matrix(z.rows, z.cols)
+    random_normal_matrix(0, 1, rand_matrix3)
+    scalar_mul(rand_matrix3, sigma_r)
+    scalar_add(rand_matrix3, mu_r)
+    scalar_exp(rand_matrix3)
+    matrix_add(zp, rand_matrix3)
+
+    let R: Matrix =  Matrix(zp)
+    for i in range(w.rows):
+        for j in range(w.cols):
+            if w[i, j] &gt;= w_hat:
+                mat_y[i, j] += R[i, j] * s_0 * w[i, j]
+            w[i, j] = mat_y[i, j]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn wealth_time_series(result: Matrix, n: Int, w_0: Float32, a: Float32, b: Float32, sigma_z: Float32,
+                    c_y: Float32, sigma_y: Float32, mu_y: Float32,
+                    c_r: Float32, sigma_r: Float32, mu_r: Float32, s_0: Float32,
+                    w_hat:Float32, z_mean: Float32, z_var: Float32):
+
+    let z: Matrix = Matrix(1, 1)
+    random_normal_matrix(0, 1, z)
+    scalar_mul(z, sqrt(z_var))
+    scalar_add(z, z_mean)
+    let w: Matrix = Matrix(1, 1)
+    w[0, 0] = w_0
+    result[0, 0] = w_0
+    for i in range(n-1):
+        update_states_mojo(w, z, a, b, sigma_z,
+                    c_y, sigma_y, mu_y,
+                    c_r, sigma_r, mu_r, s_0, w_hat)
+        result[i+1, 0] = w[0, 0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s combine all these functions and simulate the time series.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn execute_wealth_time_series():
+    let w_hat: Float32 = 1.0
+    let s_0: Float32 = 0.75
+    let c_y: Float32 = 1.0
+    let mu_y: Float32 = 1.0
+    let sigma_y: Float32 = 0.2
+    let c_r: Float32 = 0.05
+    let mu_r: Float32 = 0.1
+    let sigma_r: Float32 = 0.5
+    let a: Float32 = 0.5
+    let b: Float32 = 0.0
+    let sigma_z: Float32 = 0.1
+    let z_mean: Float32 = b / (1 - a)
+    let z_var: Float32 = sigma_z**2 / (1 - a**2)
+    let exp_z_mean: Float32 = exp(z_mean + z_var / 2)
+    let y_mean: Float32 = c_y * exp_z_mean + exp(mu_y + sigma_y**2 / 2)
+    let ts_length: Int = 200
+    let result: Matrix = Matrix(ts_length, 1)
+    let eval_begin: Float64 = now()
+    wealth_time_series(result, ts_length, y_mean, a, b, sigma_z,
+                    c_y, sigma_y, mu_y,
+                    c_r, sigma_r, mu_r, s_0, w_hat, z_mean, z_var)
+    let eval_end: Float64 = now()
+
+    let execution_time = Float64((eval_end - eval_begin)) / 1e6
+    
+    # Uncomment the following lines to check the result array.
+    # print(&quot;Result:&quot;)
+    # for i in range(ts_length):
+    #     print_no_newline(result[i, 0])
+    #     if i != ts_length - 1:
+    #         print_no_newline(&#39;, &#39;)
+    # print(&#39;&#39;)
+
+    print(&quot;Completed wealth distribution in &quot;, execution_time, &quot;ms&quot;)
+
+execute_wealth_time_series()
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
