@@ -21,7 +21,7 @@ The notebook is built on top of [mojo example](https://github.com/modularml/mojo
 
 Mojo is a powerful programming language that's primarily designed for high-performance systems programming, so it has a lot in common with other systems languages like Rust and C++. Yet, Mojo is also designed to become a superset of Python, so a lot of language features and concepts you might know from Python translate nicely to Mojo.
 
-```{code-cell}
+```{code-cell} mojo
 print("Hello Mojo!", "Hello QuantEcon!")
 ```
 
@@ -43,7 +43,7 @@ You can declare variables with `var` to create a mutable value, or with `let` to
 
 Let's observe the difference in using them.
 
-```{code-cell}
+```{code-cell} mojo
 fn main():
     var x: Int = 10
     x += 1
@@ -54,7 +54,7 @@ main()
 
 This works fine as expected. Now, let's replace `var` with `let` and notice the error.
 
-```{code-cell}
+```{code-cell} mojo
 ---
 tags: [raises-exception]
 ---
@@ -78,7 +78,7 @@ That's because `let` makes the value immutable, so you can't increment it.
 Mojo functions can be declared with either `fn` or `def` (as in Python). The `fn` declaration enforces
 strongly-typed and memory-safe behaviors, while `def` provides Python-style dynamic behaviors.
 
-```{code-cell}
+```{code-cell} mojo
 fn some_fun():
     let x: Int = 1
     let y = 2
@@ -93,7 +93,7 @@ Although types aren't required for variables declared in the function body, they
 
 For example, here's how to declare `Int` as the type for function arguments and the return value:
 
-```{code-cell}
+```{code-cell} mojo
 fn add_two_ints(x: Int, y: Int) -> Int:
     return x + y
 
@@ -103,7 +103,7 @@ print(z)
 
 If you want the arguments to be *mutable*, you need to declare each argument convention as `inout`. This means that changes made to the arguments *inside* the function are visible outside the function.
 
-```{code-cell}
+```{code-cell} mojo
 fn add_inout(inout x: Int, inout y: Int) -> Int:
     x += 1
     y += 1
@@ -131,7 +131,7 @@ You can build high-level abstractions for types (or "objects") in a struct. A st
 
 For example, here's a basic struct:
 
-```{code-cell}
+```{code-cell} mojo
 struct MyPair:
     var first: Int
     var second: Int
@@ -144,7 +144,7 @@ struct MyPair:
         print(self.first, self.second)
 ```
 
-```{code-cell}
+```{code-cell} mojo
 let my_pair = MyPair(2, 4)
 my_pair.dump()
 ```
@@ -155,7 +155,7 @@ Let's try to re-write the [Shortest Paths lecture](https://jax.quantecon.org/sho
 
 Let's start with the following imports
 
-```{code-cell}
+```{code-cell} mojo
 from utils.list import Dim
 from memory import memset_zero
 from random import rand
@@ -165,7 +165,7 @@ from time import now
 
 Now, define the Matrix struct that allows storing and easy computation.
 
-```{code-cell}
+```{code-cell} mojo
 # Define the Matrix struct
 struct Matrix:
     var data: DTypePointer[DType.float32]
@@ -203,7 +203,7 @@ struct Matrix:
 
 Let's define the function that fills all the elements of matrix `Q` with `inf`.
 
-```{code-cell}
+```{code-cell} mojo
 # Fill all the elements of Matrix with inf
 fn fill_Q_Matrix(Q: Matrix):
     let inf: Float32 = 100000000.00
@@ -214,7 +214,7 @@ fn fill_Q_Matrix(Q: Matrix):
 
 The following utility function computes the result equivalent to `np.sum(Q + J, axis=1)`.
 
-```{code-cell}
+```{code-cell} mojo
 # Returns equivalent to np.sum(Q + J, axis=1)
 fn add_and_min_axis_1(Q: Matrix, J: Matrix, new_J: Matrix):
     let inf: Float32 = 100000000.00
@@ -227,7 +227,7 @@ fn add_and_min_axis_1(Q: Matrix, J: Matrix, new_J: Matrix):
 
 To check where two matrices are almost equal, we define the following function equivalent to `np.allclose`.
 
-```{code-cell}
+```{code-cell} mojo
 # Checks whether both the matrices are almost equal
 fn check_close(J: Matrix, new_J: Matrix) -> Bool:
     let inf: Float32 = 100000000.00
@@ -237,7 +237,7 @@ fn check_close(J: Matrix, new_J: Matrix) -> Bool:
     return True
 ```
 
-```{code-cell}
+```{code-cell} mojo
 # Compute the shortest path
 fn shortest_paths(Q: Matrix, J: Matrix):
     let max_iter: Int = 500
@@ -254,7 +254,7 @@ fn shortest_paths(Q: Matrix, J: Matrix):
 
 Now, let's wire all these functions and run the shortest paths on some example matrix.
 
-```{code-cell}
+```{code-cell} mojo
 fn execute_shortest_paths():
     let Q: Matrix = Matrix(7, 7)
     fill_Q_Matrix(Q)
