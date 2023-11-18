@@ -40,7 +40,6 @@ jobs:
           jb build ./ --path-output ./
       - name: Upload Execution Reports
         uses: actions/upload-artifact@v2
-        if: failure()
         with:
           name: execution-reports
           path: _build/html/reports
