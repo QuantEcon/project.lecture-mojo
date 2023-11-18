@@ -5,3 +5,8 @@ parts:
   numbered: true
   chapters:
   - file: tutorial/mojo_demo
+- caption: Applications
+  numbered: true
+  chapters:
+  - file: applications/shortest_paths
+  - file: applications/wealth_distribution
