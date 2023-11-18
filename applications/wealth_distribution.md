@@ -77,7 +77,7 @@ fn matrix_add(A: Matrix, B: Matrix):
             A[i, j] += B[i, j]
 ```
 
-### A Model of Wealth Dynamics
+## A Model of Wealth Dynamics
 
 The model we will study is
 
