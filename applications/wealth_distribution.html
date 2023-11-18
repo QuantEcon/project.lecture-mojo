@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Experiments with Mojo &#8212; Mojo + Computational Economics</title>
+    <title>3. Wealth Distribution Dynamics &#8212; Mojo + Computational Economics</title>
     <script src="https://unpkg.com/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6.3.1/dist/tippy-bundle.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -60,57 +60,59 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/quantecon-book-theme.css?digest=8ccdddd742928a25ee5c13f3827fecc000146baa" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/quantecon-book-theme.css?digest=8ccdddd742928a25ee5c13f3827fecc000146baa" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/scripts/quantecon-book-theme.js?digest=b21c4b94ab1abd61a98d27e943717a00f8eaac64"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/scripts/quantecon-book-theme.js?digest=b21c4b94ab1abd61a98d27e943717a00f8eaac64"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
-    <link rel="canonical" href="https://mojo.quantecon.org/intro.html" />
-    <link rel="shortcut icon" href="_static/lectures-favicon.ico"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Mojo Tutorial" href="tutorial/mojo_demo.html" />
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'applications/wealth_distribution';</script>
+    <link rel="canonical" href="https://mojo.quantecon.org/applications/wealth_distribution.html" />
+    <link rel="shortcut icon" href="../_static/lectures-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="2. Shortest Paths" href="shortest_paths.html" />
 
 <!-- Normal Meta Tags -->
 <meta name="author" context="QuantEcon Developer Team" />
@@ -120,22 +122,22 @@ const thebe_selector_output = ".output, .cell_output"
 <!-- Twitter tags -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@quantecon" />
-<meta name="twitter:title" content="Experiments with Mojo"/>
+<meta name="twitter:title" content="Wealth Distribution Dynamics"/>
 <meta name="twitter:description" content="This website is an experimental review of Mojo (Modular) to evaluate real-world speed gains">
 <meta name="twitter:creator" content="@quantecon">
 <meta name="twitter:image" content="https://assets.quantecon.org/img/qe-twitter-logo.png">
 
 <!-- Opengraph tags -->
-<meta property="og:title" content="Experiments with Mojo" />
+<meta property="og:title" content="Wealth Distribution Dynamics" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://mojo.quantecon.org/intro.html" />
+<meta property="og:url" content="https://mojo.quantecon.org/applications/wealth_distribution.html" />
 <meta property="og:image" content="https://assets.quantecon.org/img/qe-og-logo.png" />
 <meta property="og:description" content="This website is an experimental review of Mojo (Modular) to evaluate real-world speed gains" />
 <meta property="og:site_name" content="Mojo + Computational Economics" />
 <meta name="theme-color" content="#ffffff" />
 
   </head>
-<body class="main-index">
+<body>
 
 
     <span id="top"></span>
@@ -144,23 +146,28 @@ const thebe_selector_output = ".output, .cell_output"
 
         <div class="qe-main">
 
-            <div class="qe-page" id=intro>
+            <div class="qe-page" id=applications/wealth_distribution>
 
                 <div class="qe-page__toc">
 
                     <div class="inner">
 
                         
+                        <div class="qe-page__toc-header">
+                            On this page
+                        </div>
 
 
                         <nav id="bd-toc-nav" class="qe-page__toc-nav">
-                            
+                            <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-model-of-wealth-dynamics">3.1. A Model of Wealth Dynamics</a></li>
+</ul>
                             <p class="logo">
                                 
                                     
-                                    <a href=https://quantecon.org><img src="_static/qe-logo.png" class="logo logo-img" alt="logo"></a>
+                                    <a href=https://quantecon.org><img src="../_static/qe-logo.png" class="logo logo-img" alt="logo"></a>
                                     
-                                    <a href=https://quantecon.org><img src="_static/quantecon-logo-transparent.png" class="dark-logo-img" alt="logo"></a>
+                                    <a href=https://quantecon.org><img src="../_static/quantecon-logo-transparent.png" class="dark-logo-img" alt="logo"></a>
                                     
                                     
                                 
@@ -184,9 +191,9 @@ const thebe_selector_output = ".output, .cell_output"
 
                     <div class="qe-page__header-copy">
 
-                        <p class="qe-page__header-heading"><a href="#">Mojo + Computational Economics</a></p>
+                        <p class="qe-page__header-heading"><a href="../intro.html">Mojo + Computational Economics</a></p>
 
-                        <p class="qe-page__header-subheading">Experiments with Mojo</p>
+                        <p class="qe-page__header-subheading">Wealth Distribution Dynamics</p>
 
                     </div>
 
@@ -201,22 +208,214 @@ const thebe_selector_output = ".output, .cell_output"
                     
                     <div>
                         
-  <section class="tex2jax_ignore mathjax_ignore" id="experiments-with-mojo">
-<h1>Experiments with Mojo<a class="headerlink" href="#experiments-with-mojo" title="Permalink to this heading">#</a></h1>
-<p>This website is an experimental review of Mojo (Modular) to evaluate real-world speed gains</p>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/mojo_demo.html">1. Mojo Tutorial</a></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="wealth-distribution-dynamics">
+<h1><span class="section-number">3. </span>Wealth Distribution Dynamics<a class="headerlink" href="#wealth-distribution-dynamics" title="Permalink to this heading">#</a></h1>
+<p>Let’s try to re-write the <a class="reference external" href="https://jax.quantecon.org/wealth_dynamics.html">Wealth Distribution Dynamics</a>
+in mojo and compare the results with JAX.</p>
+<p>Let’s start with the following imports</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>from memory import memset_zero, memcpy
+from random import rand, random_float64
+from math import abs, exp, sqrt, log, cos
+from time import now
+
+# Set the constant value of PI
+alias PI = 3.141592653589793
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="applications/shortest_paths.html">2. Shortest Paths</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications/wealth_distribution.html">3. Wealth Distribution Dynamics</a></li>
-</ul>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>error: Execution was interrupted, reason: internal c++ exception breakpoint(-4)..
+The process has been left at the point where it was interrupted, use &quot;thread return -x&quot; to return to the state before expression evaluation.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We define the random normal variate generator functions
+that will be used later in the example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn random_normal(mu: Float32, sigma: Float32, M: SIMD[DType.float32, 1]) -&gt; SIMD[DType.float32, 1]:
+
+    let u1 = random_float64().cast[DType.float32]()
+    let u2 = random_float64().cast[DType.float32]()
+
+    let z0 = sqrt(-2 * log(u1)) * cos[DType.float32, 1](2 * PI * u2)
+
+    return sigma*z0 + mu
+
+
+fn random_normal_matrix(mu: Float32, sigma: Float32, M: Matrix):
+    for i in range(M.rows):
+        for j in range(M.cols):
+            M[i, j] = random_normal(mu, sigma, M[i, j])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We need some matrix operations like multiplication, addition,
+and exponential of the whole matrix by some scalar number.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn scalar_mul(A: Matrix, m: Float32):
+    # Multiplies each element of A by m
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] = m*A[i, j]
+
+fn scalar_add(A: Matrix, a: Float32):
+    # Adds each element of A by a
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] += a
+
+fn scalar_exp(A: Matrix):
+    # Exponential of each element of A
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] = exp(A[i, j])
+
+fn matrix_add(A: Matrix, B: Matrix):
+    # Adds two Matrix A and B. Result is stored in A
+    for i in range(A.rows):
+        for j in range(A.cols):
+            A[i, j] += B[i, j]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="a-model-of-wealth-dynamics">
+<h2><span class="section-number">3.1. </span>A Model of Wealth Dynamics<a class="headerlink" href="#a-model-of-wealth-dynamics" title="Permalink to this heading">#</a></h2>
+<p>The model we will study is</p>
+<div class="math notranslate nohighlight">
+\[
+    w_{t+1} = (1 + r_{t+1}) s(w_t) + y_{t+1}
+\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(w_t\)</span> is wealth at time <span class="math notranslate nohighlight">\(t\)</span> for a given household,</p></li>
+<li><p><span class="math notranslate nohighlight">\(r_t\)</span> is the rate of return of financial assets,</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_t\)</span> is current non-financial (e.g., labor) income and</p></li>
+<li><p><span class="math notranslate nohighlight">\(s(w_t)\)</span> is current wealth net of consumption</p></li>
+</ul>
+<p>The following function updates one period with the given
+current wealth and persistent state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn update_states_mojo(w: Matrix, z: Matrix, a: Float32, b: Float32, sigma_z: Float32,
+                    c_y: Float32, sigma_y: Float32, mu_y: Float32,
+                    c_r: Float32, sigma_r: Float32, mu_r: Float32, s_0: Float32,
+                    w_hat: Float32):
+
+    scalar_mul(z, a)
+    scalar_add(z, b)
+    let rand_matrix1: Matrix = Matrix(z.rows, z.cols)
+    random_normal_matrix(0, 1, rand_matrix1)
+    scalar_mul(rand_matrix1, sigma_z)
+    matrix_add(z, rand_matrix1)
+
+    var zp: Matrix = Matrix(z)
+
+    scalar_exp(zp)
+    scalar_mul(zp, c_y)
+    let rand_matrix2: Matrix = Matrix(z.rows, z.cols)
+    random_normal_matrix(0, 1, rand_matrix2)
+    scalar_mul(rand_matrix2, sigma_y)
+    scalar_add(rand_matrix2, mu_y)
+    scalar_exp(rand_matrix2)
+    matrix_add(zp, rand_matrix2)
+
+    let mat_y: Matrix =  Matrix(zp)
+
+    zp = Matrix(z)
+    scalar_exp(zp)
+    scalar_mul(zp, c_r)
+    let rand_matrix3: Matrix = Matrix(z.rows, z.cols)
+    random_normal_matrix(0, 1, rand_matrix3)
+    scalar_mul(rand_matrix3, sigma_r)
+    scalar_add(rand_matrix3, mu_r)
+    scalar_exp(rand_matrix3)
+    matrix_add(zp, rand_matrix3)
+
+    let R: Matrix =  Matrix(zp)
+    for i in range(w.rows):
+        for j in range(w.cols):
+            if w[i, j] &gt;= w_hat:
+                mat_y[i, j] += R[i, j] * s_0 * w[i, j]
+            w[i, j] = mat_y[i, j]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn wealth_time_series(result: Matrix, n: Int, w_0: Float32, a: Float32, b: Float32, sigma_z: Float32,
+                    c_y: Float32, sigma_y: Float32, mu_y: Float32,
+                    c_r: Float32, sigma_r: Float32, mu_r: Float32, s_0: Float32,
+                    w_hat:Float32, z_mean: Float32, z_var: Float32):
+
+    let z: Matrix = Matrix(1, 1)
+    random_normal_matrix(0, 1, z)
+    scalar_mul(z, sqrt(z_var))
+    scalar_add(z, z_mean)
+    let w: Matrix = Matrix(1, 1)
+    w[0, 0] = w_0
+    result[0, 0] = w_0
+    for i in range(n-1):
+        update_states_mojo(w, z, a, b, sigma_z,
+                    c_y, sigma_y, mu_y,
+                    c_r, sigma_r, mu_r, s_0, w_hat)
+        result[i+1, 0] = w[0, 0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s combine all these functions and simulate the time series.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>fn execute_wealth_time_series():
+    let w_hat: Float32 = 1.0
+    let s_0: Float32 = 0.75
+    let c_y: Float32 = 1.0
+    let mu_y: Float32 = 1.0
+    let sigma_y: Float32 = 0.2
+    let c_r: Float32 = 0.05
+    let mu_r: Float32 = 0.1
+    let sigma_r: Float32 = 0.5
+    let a: Float32 = 0.5
+    let b: Float32 = 0.0
+    let sigma_z: Float32 = 0.1
+    let z_mean: Float32 = b / (1 - a)
+    let z_var: Float32 = sigma_z**2 / (1 - a**2)
+    let exp_z_mean: Float32 = exp(z_mean + z_var / 2)
+    let y_mean: Float32 = c_y * exp_z_mean + exp(mu_y + sigma_y**2 / 2)
+    let ts_length: Int = 200
+    let result: Matrix = Matrix(ts_length, 1)
+    let eval_begin: Float64 = now()
+    wealth_time_series(result, ts_length, y_mean, a, b, sigma_z,
+                    c_y, sigma_y, mu_y,
+                    c_r, sigma_r, mu_r, s_0, w_hat, z_mean, z_var)
+    let eval_end: Float64 = now()
+
+    let execution_time = Float64((eval_end - eval_begin)) / 1e6
+    
+    # Uncomment the following lines to check the result array.
+    # print(&quot;Result:&quot;)
+    # for i in range(ts_length):
+    #     print_no_newline(result[i, 0])
+    #     if i != ts_length - 1:
+    #         print_no_newline(&#39;, &#39;)
+    # print(&#39;&#39;)
+
+    print(&quot;Completed wealth distribution in &quot;, execution_time, &quot;ms&quot;)
+
+execute_wealth_time_series()
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -228,16 +427,16 @@ const thebe_selector_output = ".output, .cell_output"
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "mojo-jupyter-kernel"
         },
         kernelOptions: {
-            name: "python3",
-            path: "./."
+            name: "mojo-jupyter-kernel",
+            path: "./applications"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'mojo-jupyter-kernel'</script>
 
                     </div>
                     
@@ -275,7 +474,7 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="tutorial/mojo_demo.html">
+  <a class="reference internal" href="../tutorial/mojo_demo.html">
    1. Mojo Tutorial
   </a>
  </li>
@@ -285,14 +484,14 @@ const thebe_selector_output = ".output, .cell_output"
   Applications
  </span>
 </p>
-<ul class="nav bd-sidenav nav sidenav_l1">
+<ul class="current nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="applications/shortest_paths.html">
+  <a class="reference internal" href="shortest_paths.html">
    2. Shortest Paths
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="applications/wealth_distribution.html">
+ <li class="toctree-l1 current active active">
+  <a class="current reference internal" href="#">
    3. Wealth Distribution Dynamics
   </a>
  </li>
@@ -314,13 +513,13 @@ const thebe_selector_output = ".output, .cell_output"
 
                 <ul class="qe-toolbar__main">
                     <li data-tippy-content="Table of Contents" class="btn__sidebar"><i data-feather="menu"></i></li>
-                    <li data-tippy-content="Home"><a href="#"><i data-feather="home"></i></a></li>
+                    <li data-tippy-content="Home"><a href="../intro.html"><i data-feather="home"></i></a></li>
                     <li class="btn__qelogo"><a href="https://quantecon.org" title=""><span class="show-for-sr">QuantEcon</span></a></li>
                 </ul>
 
                 <ul class="qe-toolbar__links">
                     <li class="btn__search">
-                        <form action="search.html" method="get">
+                        <form action="../search.html" method="get">
                             <input type="search" class="form-control" name="q" id="search-input" placeholder="Search..." aria-label="Search..." autocomplete="off" accesskey="k">
                             <i data-feather="search" id="search-icon"></i>
                         </form>
@@ -330,7 +529,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <li data-tippy-content="Decrease font size" class="btn__minus"><i data-feather="minus-circle"></i></li>
                     <li data-tippy-content="Change contrast" class="btn__contrast"><i data-feather="sunset"></i></li>
                         <li data-tippy-content="Download PDF" onClick="window.print()"><i data-feather="file"></i></li>
-                    <li data-tippy-content="View Source"><a target="_blank" href="https://github.com/QuantEcon/project.lecture-mojo/blob/main/intro.md" download><i data-feather="github"></i></a></li>
+                    <li data-tippy-content="View Source"><a target="_blank" href="https://github.com/QuantEcon/project.lecture-mojo/blob/main/applications/wealth_distribution.md" download><i data-feather="github"></i></a></li>
                 </ul>
 
             </div>
@@ -398,7 +597,7 @@ const thebe_selector_output = ".output, .cell_output"
                 }
                 const launcherPublic = document.getElementById('launcher-public-input');
                 const launcherPrivate = document.getElementById('launcher-private-input');
-                const pageName = "intro";
+                const pageName = "applications/wealth_distribution";
                 const repoURL = "";
                 const urlPath = "";
                 const branch = ""
