@@ -26,6 +26,48 @@ from time import now
 alias PI = 3.141592653589793
 ```
 
+Now, define the Matrix struct that allows storing and easy computation.
+
+```{code-cell}
+struct Matrix:
+    var data: DTypePointer[DType.float32]
+    var rows: Int
+    var cols: Int
+
+    fn __init__(inout self, rows: Int, cols: Int):
+        self.data = DTypePointer[DType.float32].alloc(rows * cols)
+        self.rows = rows
+        self.cols = cols
+
+    fn __init__(inout self, other: Matrix):
+        self.rows = other.rows
+        self.cols = other.cols
+        self.data = DTypePointer[DType.float32].alloc(self.rows * self.cols)
+        memcpy[DType.float32](self.data, other.data, self.rows * self.cols)
+
+    fn __del__(owned self):
+        self.data.free()
+
+    fn zero(inout self):
+        memset_zero(self.data, self.rows * self.cols)
+
+    @always_inline
+    fn __getitem__(self, y: Int, x: Int) -> Float32:
+        return self.load[1](y, x)
+
+    @always_inline
+    fn __setitem__(self, y: Int, x: Int, val: Float32):
+        return self.store[1](y, x, val)
+
+    @always_inline
+    fn load[nelts: Int](self, y: Int, x: Int) -> SIMD[DType.float32, nelts]:
+        return self.data.simd_load[nelts](y * self.cols + x)
+
+    @always_inline
+    fn store[nelts: Int](self, y: Int, x: Int, val: SIMD[DType.float32, nelts]):
+        return self.data.simd_store[nelts](y * self.cols + x, val)
+```
+
 We define the random normal variate generator functions
 that will be used later in the example.
 

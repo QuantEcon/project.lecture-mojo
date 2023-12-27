@@ -1,4 +1,4 @@
-from benchmark import Benchmark
+import benchmark
 from runtime.llcl import Runtime
 from memory import memset_zero
 from random import rand, seed
@@ -111,7 +111,7 @@ fn large_matmul():
     fn test_fn():
         matmul(B, A, AT)
 
-    # var secs = Float64(Benchmark().run[test_fn]()) / 1_000_000_000
+    # var secs = Float64(benchmark.run[test_fn]()) / 1_000_000_000
     # print("Completed matmul in ", secs * 1_000, "ms /", secs, "s")
 
     # let gflops = ((2*size**3)/secs) / 1e9
