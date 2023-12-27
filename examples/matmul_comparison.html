@@ -207,7 +207,7 @@ const thebe_selector_output = ".output, .cell_output"
                         
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>from benchmark import Benchmark
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>import benchmark
 from runtime.llcl import Runtime
 from memory import memset_zero
 from random import rand, seed
@@ -306,7 +306,7 @@ fn large_matmul():
     fn test_fn():
         matmul(B, A, AT)
 
-    # var secs = Float64(Benchmark().run[test_fn]()) / 1_000_000_000
+    # var secs = Float64(benchmark.run[test_fn]()) / 1_000_000_000
     # print(&quot;Completed matmul in &quot;, secs * 1_000, &quot;ms /&quot;, secs, &quot;s&quot;)
 
     # let gflops = ((2*size**3)/secs) / 1e9
@@ -328,7 +328,7 @@ fn main():
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>error: Execution was interrupted, reason: internal c++ exception breakpoint(-3)..
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>error: Execution was interrupted, reason: internal c++ exception breakpoint(-4)..
 The process has been left at the point where it was interrupted, use &quot;thread return -x&quot; to return to the state before expression evaluation.
 </pre></div>
 </div>

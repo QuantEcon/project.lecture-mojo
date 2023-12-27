@@ -226,8 +226,52 @@ alias PI = 3.141592653589793
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>error: Execution was interrupted, reason: internal c++ exception breakpoint(-3)..
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>error: Execution was interrupted, reason: internal c++ exception breakpoint(-4)..
 The process has been left at the point where it was interrupted, use &quot;thread return -x&quot; to return to the state before expression evaluation.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, define the Matrix struct that allows storing and easy computation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-mojo notranslate"><div class="highlight"><pre><span></span>struct Matrix:
+    var data: DTypePointer[DType.float32]
+    var rows: Int
+    var cols: Int
+
+    fn __init__(inout self, rows: Int, cols: Int):
+        self.data = DTypePointer[DType.float32].alloc(rows * cols)
+        self.rows = rows
+        self.cols = cols
+
+    fn __init__(inout self, other: Matrix):
+        self.rows = other.rows
+        self.cols = other.cols
+        self.data = DTypePointer[DType.float32].alloc(self.rows * self.cols)
+        memcpy[DType.float32](self.data, other.data, self.rows * self.cols)
+
+    fn __del__(owned self):
+        self.data.free()
+
+    fn zero(inout self):
+        memset_zero(self.data, self.rows * self.cols)
+
+    @always_inline
+    fn __getitem__(self, y: Int, x: Int) -&gt; Float32:
+        return self.load[1](y, x)
+
+    @always_inline
+    fn __setitem__(self, y: Int, x: Int, val: Float32):
+        return self.store[1](y, x, val)
+
+    @always_inline
+    fn load[nelts: Int](self, y: Int, x: Int) -&gt; SIMD[DType.float32, nelts]:
+        return self.data.simd_load[nelts](y * self.cols + x)
+
+    @always_inline
+    fn store[nelts: Int](self, y: Int, x: Int, val: SIMD[DType.float32, nelts]):
+        return self.data.simd_store[nelts](y * self.cols + x, val)
 </pre></div>
 </div>
 </div>
