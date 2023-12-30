@@ -6,6 +6,7 @@ dependencies:
   - anaconda=2023.09
   - pip
   - pip:
+    - nbclient==0.7.4
     - jupyter-book==0.15.1
     - docutils==0.17.1
     - quantecon-book-theme==0.6.2
